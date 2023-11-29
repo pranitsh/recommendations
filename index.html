@@ -88,9 +88,7 @@
                     ['https://www.pranitshah.cyou/portfolios/coding-portfolio', 'Coding Portfolio'],
                 ];
                 var visited = getVisitedLinks();
-                console.log(visited);
                 var unvisited = allLinks.filter(link => !visited.includes(link[0]));
-                console.log(unvisited)
                 var recommended = unvisited.sort(() => 0.5 - Math.random()).slice(0, 3);
                 return recommended;
             }
@@ -106,9 +104,7 @@
                 });
             }
 
-            var test1 = getParentUrl();
-            console.log(test1);
-            setVisited(test1);
+            setVisited(getParentUrl());
             addRecommendationLinks(recommendLinks());
         </script>
 </body>
