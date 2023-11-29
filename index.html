@@ -57,11 +57,14 @@
     <h2 class="recommendation-links-header">Recommendations!</h1>
         <div class="recommendation-links"></div>
         <script>
-            function getParentUrl() {
-                const params = new URLSearchParams(window.location.search);
-                const parentUrl = params.get('parentUrl');
-                return parentUrl;
-            }
+            var allLinks = [
+                ['https://www.pranitshah.cyou/webgpt', 'webGPT'],
+                ['https://www.pranitshah.cyou/tuneease', 'Tune Ease'],
+                ['https://www.pranitshah.cyou/keyflare', 'KeyFlare'],
+                ['https://www.pranitshah.cyou/portfolios/music-portfolio', 'Music Portfolio'],
+                ['https://www.pranitshah.cyou/portfolios/art-portfolio', 'Art Portfolio'],
+                ['https://www.pranitshah.cyou/portfolios/coding-portfolio', 'Coding Portfolio'],
+            ];
 
             function setVisited(linkId) {
                 localStorage.setItem(linkId, 'visited');
@@ -79,14 +82,6 @@
             }
 
             function recommendLinks() {
-                var allLinks = [
-                    ['https://www.pranitshah.cyou/webgpt', 'webGPT'],
-                    ['https://www.pranitshah.cyou/tuneease', 'Tune Ease'],
-                    ['https://www.pranitshah.cyou/keyflare', 'KeyFlare'],
-                    ['https://www.pranitshah.cyou/portfolios/music-portfolio', 'Music Portfolio'],
-                    ['https://www.pranitshah.cyou/portfolios/art-portfolio', 'Art Portfolio'],
-                    ['https://www.pranitshah.cyou/portfolios/coding-portfolio', 'Coding Portfolio'],
-                ];
                 var visited = getVisitedLinks();
                 console.log(visited);
                 var unvisited = allLinks.filter(link => !visited.includes(link[0]));
@@ -106,7 +101,7 @@
                 });
             }
 
-            setVisited(getParentUrl());
+            setVisited(allLinks[0][0]);
             addRecommendationLinks(recommendLinks());
         </script>
 </body>
