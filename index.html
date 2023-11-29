@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendations</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #1c1c1c;
+            background-color: #fff;
+        }
+
+        .recommendation-links-header {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+
+        .recommendation-links {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .recommendation-links a {
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 2px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+
+        .recommendation-links a:not(:last-child) {
+            margin-right: 10px;
+        }
+
+        .recommendation-links a:hover {
+            background-color: #1c1c1c;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="recommendation-links-header">Recommendations!</h1>
+        <div class="recommendation-links"></div>
+        <script>
+            function getEmbeddingPageUrl() {
+                if (window !== window.top) {
+                    try {
+                        return document.referrer; // This works if the embed is on the same domain
+                    } catch (e) {
+                        console.log("Cannot access parent URL due to same-origin policy");
+                        return null;
+                    }
+                } else {
+                    return window.location.href; // The embed is not in an iframe
+                }
+            }
+
+            function setVisited(linkId) {
+                localStorage.setItem(linkId, 'visited');
+            }
+
+            function getVisitedLinks() {
+                var visited = [];
+                for (var i = 0; i < localStorage.length; i++) {
+                    var key = localStorage.key(i);
+                    if (localStorage.getItem(key) === 'visited') {
+                        visited.push(key);
+                    }
+                }
+                return visited;
+            }
+
+            function recommendLinks() {
+                var allLinks = [
+                    ['https://www.pranitshah.cyou/webgpt', 'webGPT'],
+                    ['https://www.pranitshah.cyou/tuneease', 'Tune Ease'],
+                    ['https://www.pranitshah.cyou/keyflare', 'KeyFlare'],
+                    ['https://www.pranitshah.cyou/portfolios/music-portfolio', 'Music Portfolio'],
+                    ['https://www.pranitshah.cyou/portfolios/art-portfolio', 'Art Portfolio'],
+                    ['https://www.pranitshah.cyou/portfolios/coding-portfolio', 'Coding Portfolio'],
+                ];
+                var visited = getVisitedLinks();
+                var unvisited = allLinks.filter(link => !visited.includes(link));
+                var recommended = unvisited.sort(() => 0.5 - Math.random()).slice(0, 3);
+                return recommended;
+            }
+
+            function addRecommendationLinks(links) {
+                const recommendationsDiv = document.querySelector('.recommendation-links');
+                links.forEach(link => {
+                    const linkElement = document.createElement('a');
+                    linkElement.href = link[0];
+                    linkElement.textContent = link[1];
+                    linkElement.style.display = 'block';
+                    recommendationsDiv.appendChild(linkElement);
+                });
+            }
+
+            setVisited(getEmbeddingPageUrl());
+            addRecommendationLinks(recommendLinks());
+        </script>
+</body>
+
+</html>
