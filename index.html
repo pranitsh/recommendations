@@ -66,6 +66,27 @@
                 ['https://www.pranitshah.cyou/portfolios/coding-portfolio', 'Coding Portfolio'],
             ];
 
+            // The below two functions are saved for now.
+            function getEmbeddingPageUrl() {
+                if (window !== window.top) {
+                    try {
+                        return document.referrer; // This works if the embed is on the same domain
+                    } catch (e) {
+                        console.log("Cannot access parent URL due to same-origin policy");
+                        return null;
+                    }
+                } else {
+                    return window.location.href; // The embed is not in an iframe
+                }
+            }
+
+            function getParentUrl() {
+                const params = new URLSearchParams(window.location.search);
+                const parentUrl = params.get('parentUrl');
+                return parentUrl;
+            }
+
+
             function setVisited(linkId) {
                 localStorage.setItem(linkId, 'visited');
             }
@@ -101,6 +122,9 @@
                 });
             }
 
+            // For google sites, neither cookies nor local storage are persistent. There is no convenient way to do this through google sites.
+            // Furthermore, embedded urls cannot access the parent url. A programmatic solution is used for now.
+            // The best solution would be to use take-out to get your website html and embed from there.
             setVisited(allLinks[0][0]);
             addRecommendationLinks(recommendLinks());
         </script>
