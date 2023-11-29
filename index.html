@@ -57,17 +57,10 @@
     <h2 class="recommendation-links-header">Recommendations!</h1>
         <div class="recommendation-links"></div>
         <script>
-            function getEmbeddingPageUrl() {
-                if (window !== window.top) {
-                    try {
-                        return document.referrer; // This works if the embed is on the same domain
-                    } catch (e) {
-                        console.log("Cannot access parent URL due to same-origin policy");
-                        return null;
-                    }
-                } else {
-                    return window.location.href; // The embed is not in an iframe
-                }
+            function getParentUrl() {
+                const params = new URLSearchParams(window.location.search);
+                const parentUrl = params.get('parentUrl');
+                return parentUrl;
             }
 
             function setVisited(linkId) {
@@ -95,7 +88,9 @@
                     ['https://www.pranitshah.cyou/portfolios/coding-portfolio', 'Coding Portfolio'],
                 ];
                 var visited = getVisitedLinks();
-                var unvisited = allLinks.filter(link => !visited.includes(link));
+                console.log(visited);
+                var unvisited = allLinks.filter(link => !visited.includes(link[0]));
+                console.log(unvisited)
                 var recommended = unvisited.sort(() => 0.5 - Math.random()).slice(0, 3);
                 return recommended;
             }
@@ -111,7 +106,9 @@
                 });
             }
 
-            setVisited(getEmbeddingPageUrl());
+            var test1 = getParentUrl();
+            console.log(test1);
+            setVisited(test1);
             addRecommendationLinks(recommendLinks());
         </script>
 </body>
