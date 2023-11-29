@@ -8,3 +8,10 @@ An add-on to pranitshah.cyou's website. Check out [my website](www.pranitshah.cy
   - When calling, use format `thelink?parentUrl=theencodedurl``.
   - For example, https://pranitsh.github.io/recommendations/?parentUrl=https%3A%2F%2Fwww.pranitshah.cyou%2Fwebgpt
   - Use https://www.urlencoder.org/ for encoding and https://www.urldecoder.org/ for decoding.
+- Here is a list (to attempt at comprehensiveness in relation to this project) of the limitations of google site embedded code:
+  - No persistent storage
+  - Prevents opening links
+  - Numerous errors and warnings inherently.
+  - Different link provided to the container.
+  - No caching
+  - Full sandboxing.
